@@ -48,6 +48,3 @@ module Proxy
         end
     end
 end
-
-
-ye
