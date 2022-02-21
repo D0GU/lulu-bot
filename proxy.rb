@@ -10,8 +10,18 @@ module Proxy
   
     command :proxy_init do |event|
         id = $DB[:webhook].where(name: "Generic").get(:id)
-        token = $DB[:webhook].where(name: "Generic").get(:token)
-        Discordrb::API::Webhook.delete_webhook(TOKEN, id)
+        web_token = $DB[:webhook].where(name: "Generic").get(:token)
+        webhooks = []
+        for hook in event.message.channel.webhooks
+            webhooks.push hook.id.to_s
+        end
+        puts id.to_s
+        puts webhooks
+        for item in webhooks
+            if id == item
+                Discordrb::API::Webhook.token_delete_webhook(web_token.to_s, id.to_s)
+            end
+        end
 
         channel_id = event.message.channel.id
         response = Discordrb::API::Channel.create_webhook("Bot "+TOKEN,channel_id,"Generic","https://media.discordapp.net/attachments/870400086243414057/945034474796744875/Screenshot_from_2022-02-20_20-06-42.png")
