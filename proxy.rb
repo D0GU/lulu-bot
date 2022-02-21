@@ -17,13 +17,14 @@ module Proxy
         token = data["token"]
         puts id,token
         $WEBHOOK.insert(:name => "Generic", :id => id, :token => token)
+        event.respond("Webhook Initialized :lulustare:")
     end    
 
     command :proxy_create do |event,prefix,*text|
         name = text.join(' ')
         image = event.message.attachments[0].url.to_s
         $PROXIES.insert(:name => name, :prefix => prefix, :pfp => image)
-        puts image
+        event.respond("Proxy for #{name} has been created!")
     end
 
     command :proxy_delete do |event,*text|

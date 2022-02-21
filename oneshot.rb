@@ -3,7 +3,6 @@ require "discordrb"
 module Oneshot
     extend Discordrb::EventContainer
     extend Discordrb::Commands::CommandContainer
-
   
     command :ily do |event|
         author = event.message.author.display_name
