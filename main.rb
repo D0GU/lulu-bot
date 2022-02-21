@@ -7,7 +7,6 @@ require_relative "proxy.rb"
 
 if File.exists?('.env') != true
     File.open('.env', 'w+') do |env|
-
         File.write(env,"PREFIX=$\nTOKEN=\nCLIENT_ID=\nSECRET=")
     end
     abort "new .env file created, please enter your bot client id and token and restart server"    
@@ -20,6 +19,8 @@ CLIENT_ID = ENV['CLIENT_ID']
 SECRET = ENV['SECRET']
 
 database_init
+$DB[:webhook].delete
+
 
 $bot = Discordrb::Commands::CommandBot.new token: TOKEN, client_id: CLIENT_ID, prefix: PREFIX
 $bot.include! Oneshot

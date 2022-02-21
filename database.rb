@@ -5,6 +5,7 @@ def database_init()
     if File.exists?("luludb.db")
         $DB = Sequel.connect('sqlite://luludb.db')
         $PROXIES = $DB[:proxies]
+        $WEBHOOK = $DB[:webhook]
     else
         db = SQLite3::Database.new "luludb.db"
         db.close
@@ -14,9 +15,13 @@ def database_init()
             String :name
             String :prefix
             String :pfp
-        
-        $PROXIES = $DB[:proxies]
-        
         end
+        $DB.create_table :webhook do
+            String :name
+            String :id
+            String :token
+        end
+        $PROXIES = $DB[:proxies]
+        $WEBHOOK = $DB[:webhook]
     end
 end
