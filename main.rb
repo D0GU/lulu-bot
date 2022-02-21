@@ -19,7 +19,6 @@ CLIENT_ID = ENV['CLIENT_ID']
 SECRET = ENV['SECRET']
 
 database_init
-$DB[:webhook].delete
 
 
 $bot = Discordrb::Commands::CommandBot.new token: TOKEN, client_id: CLIENT_ID, prefix: PREFIX
