@@ -12,11 +12,7 @@ module Proxy
         channel_id = event.message.channel.id
         response = Discordrb::API::Channel.create_webhook("Bot "+TOKEN,channel_id,"Generic","https://media.discordapp.net/attachments/870400086243414057/945034474796744875/Screenshot_from_2022-02-20_20-06-42.png")
         data = JSON.load(response)
-        puts response
-        id = data["id"]
-        token = data["token"]
-        puts id,token
-        $WEBHOOK.insert(:name => "Generic", :id => id, :token => token)
+        $WEBHOOK.insert(:name => "Generic", :id => data["token"], :token => data["token"])
         event.respond("Webhook Initialized :lulustare:")
     end    
 
